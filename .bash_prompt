@@ -13,6 +13,7 @@ WHITE="\033[1;37m"
 parse_git_branch() {
 	local BRANCH=`git branch 2>/dev/null| sed -n '/^\*/s/^\* //p'`
 	local BRANCHCOLOR=$GREEN;
+	local STATUS=""
 
 	if [ -z $BRANCH ]; then
 		return
@@ -20,8 +21,9 @@ parse_git_branch() {
 		# check if the current directory is in .git before running git checks
 		if [ "$(git rev-parse --is-inside-git-dir 2> /dev/null)" == 'false' ]; then
 
-			# Ensure the index is up to date.
-			git update-index --really-refresh -q &>/dev/null;
+			# ensure everything is up to date
+			git remote update -q &>/dev/null
+			git update-index --really-refresh -q &>/dev/null
 
 			if ! $(git diff --quiet --ignore-submodules --cached); then
 				# check for uncommitted changes in the index.
@@ -36,11 +38,28 @@ parse_git_branch() {
 
 			# check for stashed files.
 			if $(git rev-parse --verify refs/stash &>/dev/null); then
-				BRANCH+="${CYAN}*";
+				BRANCH+="*";
 			fi
+
+			# do we need to push?
+			if $(git status | grep "ahead" &>/dev/null); then
+				STATUS+="▲";
+			fi
+
+			# do we need to pull?
+			if $(git status | grep "behind" &>/dev/null); then
+				STATUS+="▼";
+			fi
+
+			# have we diverged?
+			if $(git status | grep "behind" &>/dev/null); then
+				STATUS+="✘";
+			fi
+
+			[ -n $STATUS ] && STATUS=" ${STATUS}"
 		fi
 
-		echo -e " ${RESET}(${BRANCHCOLOR}${BRANCH}${RESET})"
+		echo -e " ${RESET}(${BRANCHCOLOR}${BRANCH}${STATUS}${RESET})"
 	fi
 }
 
