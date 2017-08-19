@@ -22,7 +22,6 @@ parse_git_branch() {
 		if [ "$(git rev-parse --is-inside-git-dir 2> /dev/null)" == 'false' ]; then
 
 			# ensure everything is up to date
-			git remote update -q &>/dev/null
 			git update-index --really-refresh -q &>/dev/null
 
 			if ! $(git diff --quiet --ignore-submodules --cached); then
@@ -44,16 +43,6 @@ parse_git_branch() {
 			# do we need to push?
 			if $(git status | grep "ahead" &>/dev/null); then
 				STATUS+="▲";
-			fi
-
-			# do we need to pull?
-			if $(git status | grep "behind" &>/dev/null); then
-				STATUS+="▼";
-			fi
-
-			# have we diverged?
-			if $(git status | grep "behind" &>/dev/null); then
-				STATUS+="✘";
 			fi
 
 			[ -n "${STATUS}" ] && STATUS=" ${STATUS}"
