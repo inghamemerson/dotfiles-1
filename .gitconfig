@@ -1,0 +1,31 @@
+[user]
+	name = Zachary Flower
+	email = zach@zacharyflower.com
+[core]
+	editor = /usr/bin/vim
+	pager = less -r
+	excludesfile = ~/.gitignore
+[color]
+  ui = auto
+	interactive = auto
+[alias]
+	st = status
+	tree = log --graph --pretty=format:'%C(yellow)%h%C(cyan)%d%Creset %s %C(white)- %an, %ar%Creset'
+	history = log --stat --abbrev-commit
+	amend = !git log -n 1 --pretty=tformat:%s%n%n%b | git commit -F - --amend
+  branches = branch -a
+  remotes = remote -v
+  tags = tag -l
+	undo = reset --soft HEAD~1
+	commit = commit -s
+  com = checkout master
+  cod = checkout develop
+	set = !git branch --set-upstream-to=origin/`git symbolic-ref --short HEAD`
+[push]
+	default = current
+[pull]
+	default = current
+[branch]
+	autosetuprebase = always
+[help]
+  autocorrect = 1

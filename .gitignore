@@ -1,0 +1,13 @@
+# global ignores
+.DS_Store
+.Trashes
+.Spotlight-V100
+
+Desktop.ini
+Thumbs.db
+
+.*.swp
+*~
+
+# repository-specific ignores
+.bash_private

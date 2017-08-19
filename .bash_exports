@@ -1,0 +1,19 @@
+if infocmp xterm-256color >/dev/null 2>&1; then
+	export TERM='xterm-256color';
+fi;
+
+export EDITOR='vim'
+
+export PATH=/usr/local/bin:$PATH
+export PATH=/usr/local/heroku/bin:$PATH
+export PATH=$HOME/.rbenv/bin:$PATH
+export PATH=$PATH:/usr/local/share/npm/bin
+export PATH=$PATH:$HOME/bin
+export PATH=$PATH:$HOME/.phpenv/bin
+export PATH=$PATH:$HOME/.rvm/bin
+export PATH=$PATH:$HOME/.composer/vendor/bin
+
+export CLICOLOR=1
+export LSCOLORS=ExFxCxDxBxegedabagacad
+
+export RBENV_ROOT=/usr/local/var/rbenv
