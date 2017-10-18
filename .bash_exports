@@ -1,6 +1,15 @@
 if infocmp xterm-256color >/dev/null 2>&1; then
-	export TERM='xterm-256color';
-fi;
+	export TERM='xterm-256color'
+fi
+
+# determine which bash subsystem we are working with
+if uname -a | grep 'Microsoft' > /dev/null 2>&1; then
+	export SUBSYSTEM='windows'
+elif uname -a | grep 'Darwin' > /dev/null 2>&1; then
+	export SUBSYSTEM='osx'
+else
+	export SUBSYSTEM='linux'
+fi
 
 export EDITOR='vim'
 
