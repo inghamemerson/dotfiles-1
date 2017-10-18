@@ -5,6 +5,9 @@ fi
 # determine which bash subsystem we are working with
 if uname -a | grep 'Microsoft' > /dev/null 2>&1; then
 	export SUBSYSTEM='windows'
+
+	# 256 color support doesn't currently work in hyper.js or conemu
+	export TERM='xterm-color'
 elif uname -a | grep 'Darwin' > /dev/null 2>&1; then
 	export SUBSYSTEM='osx'
 else

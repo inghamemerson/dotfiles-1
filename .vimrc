@@ -34,7 +34,6 @@ Plug 'ryanoasis/vim-devicons'
 
 call plug#end()
 
-set t_Co=256						  " 256 Colors
 set nocompatible					" Use Vim settings, rather then Vi settings (much better!).
 set ofu=syntaxcomplete#Complete
 
@@ -86,16 +85,26 @@ set mouse=a
 set ttymouse=xterm2
 
 " ================ Colors ============================
-if (has("autocmd") && !has("gui_running"))
-  let s:white = { "gui": "#ABB2BF", "cterm": "145", "cterm16" : "7" }
-  autocmd ColorScheme * call onedark#set_highlight("Normal", { "fg": s:white }) " No `bg` setting
-end
+" Draw a distinction between 256 color terminals and 16 color terminals
+if &t_Co == 256
+  if (has("autocmd") && !has("gui_running"))
+    let s:white = { "gui": "#ABB2BF", "cterm": "145", "cterm16" : "7" }
+    autocmd ColorScheme * call onedark#set_highlight("Normal", { "fg": s:white }) " No `bg` setting
+  end
 
-colorscheme onedark 
+  colorscheme onedark 
+  
+  autocmd VimEnter,Colorscheme * :hi IndentGuidesEven ctermbg=235
+
+  let g:airline_theme='onedark'
+else
+  colorscheme peachpuff
+
+  autocmd VimEnter,Colorscheme * :hi IndentGuidesEven ctermbg=darkgrey
+endif
 
 autocmd BufEnter * IndentGuidesEnable
 let g:indent_guides_auto_colors = 0
-autocmd VimEnter,Colorscheme * :hi IndentGuidesEven ctermbg=235
 
 "highlight Pmenu ctermfg=lightgrey ctermbg=234
 "highlight PmenuSel ctermfg=white ctermbg=darkgrey
@@ -104,7 +113,6 @@ highlight clear SpellBad
 " ================ Plugins ===========================
 
 " airline
-let g:airline_theme='onedark'
 let g:airline_powerline_fonts = 1
 
 " delimitMate
