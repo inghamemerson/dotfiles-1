@@ -12,7 +12,7 @@ WHITE="\033[1;37m"
 
 parse_git_branch() {
 	local BRANCH=`git branch 2>/dev/null| sed -n '/^\*/s/^\* //p'`
-	local BRANCHCOLOR=$GREEN;
+	local BRANCHCOLOR=$GRAY;
 	local STATUS=""
 
 	if [ -z $BRANCH ]; then
@@ -29,10 +29,10 @@ parse_git_branch() {
 				BRANCHCOLOR=$YELLOW;
 			elif ! $(git diff-files --quiet --ignore-submodules --); then
 				# check for unstaged changes.
-				BRANCHCOLOR=$VIOLET;
+				BRANCHCOLOR=$GREEN;
 			elif [ -n "$(git ls-files --others --exclude-standard)" ]; then
 				# check for untracked files.
-				BRANCHCOLOR=$RED;
+				BRANCHCOLOR=$BLUE;
 			fi
 
 			# check for stashed files.

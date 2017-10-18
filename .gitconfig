@@ -77,7 +77,7 @@
 [color "status"]
 	added = yellow
 	changed = green
-	untracked = cyan
+	untracked = blue
 
 [diff]
 	# Detect copies as well as renames
