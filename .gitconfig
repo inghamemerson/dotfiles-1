@@ -41,6 +41,9 @@
 	# Set the upstream branch
 	set = !git branch --set-upstream-to=origin/`git symbolic-ref --short HEAD`
 
+  # Checkout a pull request
+  pr = "!f() { git fetch -fu ${2:-upstream} refs/pull/$1/head:pr/$1 && git checkout pr/$1; }; f"
+
 [core]
 	editor = /usr/bin/vim
 	pager = less -r
