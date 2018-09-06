@@ -18,3 +18,7 @@ alias screens='screen -ls'
 alias grep='grep --color=auto'
 alias fgrep='fgrep --color=auto'
 alias egrep='egrep --color=auto'
+
+if which bat > /dev/null; then
+  alias cat='bat'
+fi
